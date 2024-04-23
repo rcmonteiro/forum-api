@@ -14,7 +14,7 @@ export class DeleteQuestionUseCase {
     questionId,
     authorId,
   }: DeleteQuestionUseCaseRequest): Promise<DeleteQuestionUseCaseResponse> {
-    const question = await this.questionRepository.getById(questionId)
+    const question = await this.questionRepository.findById(questionId)
 
     if (!question) {
       throw new Error('Question not found')
