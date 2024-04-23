@@ -19,6 +19,13 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     return Promise.resolve()
   }
 
+  async save(question: Question): Promise<void> {
+    const index = this.items.findIndex((item) => item.id === question.id)
+    if (index >= 0) {
+      this.items[index] = question
+    }
+  }
+
   async delete(id: string): Promise<void> {
     const index = this.items.findIndex((item) => item.id.toString() === id)
     if (index >= 0) {
