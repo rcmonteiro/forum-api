@@ -5,7 +5,7 @@ import { AnswerQuestionUseCase } from './answer-question'
 
 const fakeAnswersRepository: AnswerRepository = {
   create: async (answer: Answer): Promise<void> => {
-    console.log(answer)
+    console.log('===>', answer)
   },
 }
 test('should create a answer', async () => {

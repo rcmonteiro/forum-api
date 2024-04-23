@@ -16,5 +16,8 @@
     "eslint": "^8.57.0",
     "typescript": "^5.4.5",
     "vitest": "^1.5.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10"
   }
 }
