@@ -1,4 +1,5 @@
 import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
+import { Answer } from '../../enterprise/entities/answer'
 
 interface EditAnswerUseCaseRequest {
   authorId: string
@@ -6,7 +7,9 @@ interface EditAnswerUseCaseRequest {
   content: string
 }
 
-interface EditAnswerUseCaseResponse {}
+interface EditAnswerUseCaseResponse {
+  answer: Answer
+}
 
 export class EditAnswerUseCase {
   constructor(private answersRepository: AnswersRepository) {}
@@ -30,6 +33,8 @@ export class EditAnswerUseCase {
 
     await this.answersRepository.save(answer)
 
-    return {}
+    return {
+      answer,
+    }
   }
 }
