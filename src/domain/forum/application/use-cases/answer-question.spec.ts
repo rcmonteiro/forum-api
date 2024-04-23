@@ -1,8 +1,8 @@
-import { AnswerRepository } from '@/domain/forum/application/repositories/answers-repository'
+import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
 import { Answer } from '@/domain/forum/enterprise/entities/answer'
 import { AnswerQuestionUseCase } from './answer-question'
 
-const fakeAnswersRepository: AnswerRepository = {
+const fakeAnswersRepository: AnswersRepository = {
   create: async (answer: Answer): Promise<void> => {
     console.log('===>', answer)
   },
@@ -10,7 +10,7 @@ const fakeAnswersRepository: AnswerRepository = {
 test('should create a answer', async () => {
   const answerQuestion = new AnswerQuestionUseCase(fakeAnswersRepository)
 
-  const answer = await answerQuestion.execute({
+  const { answer } = await answerQuestion.execute({
     instructorId: '1',
     questionId: '1',
     content: 'Nova resposta',
