@@ -6,7 +6,7 @@ import { DeleteQuestionUseCase } from './delete-question'
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: DeleteQuestionUseCase
 
-describe('Delete Question by Slug Use Case (unit tests)', () => {
+describe('Delete Question Use Case (unit tests)', () => {
   beforeEach(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
     sut = new DeleteQuestionUseCase(inMemoryQuestionsRepository)
