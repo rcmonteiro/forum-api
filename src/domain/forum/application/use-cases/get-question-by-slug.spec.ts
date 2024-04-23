@@ -1,5 +1,5 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Question } from '@/domain/forum/enterprise/entities/question'
+import { makeQuestion } from 'test/factories/make-question'
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
 import { GetQuestionBySlugUseCase } from './get-question-by-slug'
 
@@ -13,10 +13,8 @@ describe('Get Question by Slug Use Case (unit tests)', () => {
   })
 
   it('should be able to get a question by slug', async () => {
-    const newQuestion = await Question.create({
-      authorId: new UniqueEntityId('1'),
+    const newQuestion = makeQuestion({
       title: 'Nova pergunta',
-      content: 'Minha dúvida é que ...',
     })
 
     await inMemoryQuestionsRepository.create(newQuestion)
@@ -26,7 +24,7 @@ describe('Get Question by Slug Use Case (unit tests)', () => {
     })
 
     expect(question).toBeInstanceOf(Question)
-    expect(question.content).toEqual('Minha dúvida é que ...')
+    expect(question.content).toEqual(newQuestion.content)
     expect(inMemoryQuestionsRepository.items[0].id).toEqual(newQuestion.id)
   })
 })
