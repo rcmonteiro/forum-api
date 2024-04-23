@@ -1,20 +1,20 @@
 import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
 import { Question } from '@/domain/forum/enterprise/entities/question'
 
-interface FetchRecenteQuestionsUseCaseRequest {
+interface FetchRecentQuestionsUseCaseRequest {
   page: number
 }
 
-interface FetchRecenteQuestionsUseCaseResponse {
+interface FetchRecentQuestionsUseCaseResponse {
   questions: Question[]
 }
 
-export class FetchRecenteQuestionsUseCase {
+export class FetchRecentQuestionsUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
 
   async execute({
     page,
-  }: FetchRecenteQuestionsUseCaseRequest): Promise<FetchRecenteQuestionsUseCaseResponse> {
+  }: FetchRecentQuestionsUseCaseRequest): Promise<FetchRecentQuestionsUseCaseResponse> {
     const questions = await this.questionsRepository.findManyRecent({ page })
 
     return { questions }
