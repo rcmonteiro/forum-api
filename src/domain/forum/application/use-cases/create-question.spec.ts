@@ -20,16 +20,18 @@ describe('Create Question Use Case (unit tests)', () => {
       attachmentIds: ['1', '2'],
     })
 
-    console.log(inMemoryQuestionsRepository.items[0].attachments)
-
     expect(result.isRight()).toBe(true)
     expect(result.value?.question).toBeInstanceOf(Question)
     expect(result.value?.question.content).toEqual('Minha dúvida é que ...')
     expect(inMemoryQuestionsRepository.items[0].id).toEqual(
       result.value?.question.id,
     )
-    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2)
-    expect(inMemoryQuestionsRepository.items[0].attachments).toEqual([
+    expect(
+      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2)
+    expect(
+      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+    ).toEqual([
       expect.objectContaining({
         props: expect.objectContaining({
           attachmentId: new UniqueEntityId('1'),
