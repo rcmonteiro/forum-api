@@ -12,14 +12,15 @@ describe('Answer Question Use Case (unit tests)', () => {
   })
 
   it('should be able to answer a question', async () => {
-    const { answer } = await sut.execute({
+    const result = await sut.execute({
       instructorId: '1',
       questionId: '1',
       content: 'A minha resposta seria ...',
     })
+    const answer = result.value?.answer
 
     expect(answer).toBeInstanceOf(Answer)
-    expect(answer.content).toEqual('A minha resposta seria ...')
-    expect(inMemoryAnswersRepository.items[0].id).toEqual(answer.id)
+    expect(answer?.content).toEqual('A minha resposta seria ...')
+    expect(inMemoryAnswersRepository.items[0].id).toEqual(answer?.id)
   })
 })
