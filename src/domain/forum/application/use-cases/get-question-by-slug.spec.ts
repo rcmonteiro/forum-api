@@ -24,8 +24,10 @@ describe('Get Question by Slug Use Case (unit tests)', () => {
     })
 
     expect(result.isRight()).toBe(true)
-    expect(result.value?.question).toBeInstanceOf(Question)
-    expect(result.value?.question?.content).toEqual(newQuestion.content)
-    expect(inMemoryQuestionsRepository.items[0].id).toEqual(newQuestion.id)
+    if (result.isRight()) {
+      expect(result.value?.question).toBeInstanceOf(Question)
+      expect(result.value?.question?.content).toEqual(newQuestion.content)
+      expect(inMemoryQuestionsRepository.items[0].id).toEqual(newQuestion.id)
+    }
   })
 })
