@@ -18,11 +18,12 @@ describe('Delete Answer Comments Use Case (unit tests)', () => {
 
     expect(inMemoryAnswerCommentsRepository.items).toHaveLength(1)
 
-    await sut.execute({
+    const result = await sut.execute({
       authorId: newAnswerComment.authorId.toString(),
       answerCommentId: newAnswerComment.id.toString(),
     })
 
+    expect(result.isRight()).toBe(true)
     expect(inMemoryAnswerCommentsRepository.items).toHaveLength(0)
   })
 

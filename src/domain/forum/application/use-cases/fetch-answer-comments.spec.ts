@@ -21,12 +21,13 @@ describe('Fetch Answer Comments Use Case (unit tests)', () => {
     await inMemoryAnswerCommentsRepository.create(makeAnswerComment())
     await inMemoryAnswerCommentsRepository.create(makeAnswerComment())
 
-    const { answerComments } = await sut.execute({
+    const result = await sut.execute({
       answerId: 'any-answer-id',
       page: 1,
     })
 
-    expect(answerComments).toHaveLength(1)
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.answerComments).toHaveLength(1)
   })
 
   it('should be able to fetch paginated answer comments', async () => {
@@ -38,11 +39,12 @@ describe('Fetch Answer Comments Use Case (unit tests)', () => {
       )
     }
 
-    const { answerComments } = await sut.execute({
+    const result = await sut.execute({
       answerId: 'any-answer-id',
       page: 2,
     })
 
-    expect(answerComments).toHaveLength(2)
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.answerComments).toHaveLength(2)
   })
 })

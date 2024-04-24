@@ -17,10 +17,12 @@ describe('Answer Question Use Case (unit tests)', () => {
       questionId: '1',
       content: 'A minha resposta seria ...',
     })
-    const answer = result.value?.answer
 
-    expect(answer).toBeInstanceOf(Answer)
-    expect(answer?.content).toEqual('A minha resposta seria ...')
-    expect(inMemoryAnswersRepository.items[0].id).toEqual(answer?.id)
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.answer).toBeInstanceOf(Answer)
+    expect(result.value?.answer?.content).toEqual('A minha resposta seria ...')
+    expect(inMemoryAnswersRepository.items[0].id).toEqual(
+      result.value?.answer?.id,
+    )
   })
 })

@@ -12,14 +12,17 @@ describe('Create Question Use Case (unit tests)', () => {
   })
 
   it('should be able to create a question', async () => {
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       authorId: '1',
       title: 'Nova pergunta',
       content: 'Minha dúvida é que ...',
     })
 
-    expect(question).toBeInstanceOf(Question)
-    expect(question.content).toEqual('Minha dúvida é que ...')
-    expect(inMemoryQuestionsRepository.items[0].id).toEqual(question.id)
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.question).toBeInstanceOf(Question)
+    expect(result.value?.question.content).toEqual('Minha dúvida é que ...')
+    expect(inMemoryQuestionsRepository.items[0].id).toEqual(
+      result.value?.question.id,
+    )
   })
 })
