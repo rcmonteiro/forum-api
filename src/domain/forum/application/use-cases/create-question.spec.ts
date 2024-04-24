@@ -1,3 +1,4 @@
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Question } from '@/domain/forum/enterprise/entities/question'
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
 import { CreateQuestionUseCase } from './create-question'
@@ -16,7 +17,10 @@ describe('Create Question Use Case (unit tests)', () => {
       authorId: '1',
       title: 'Nova pergunta',
       content: 'Minha dúvida é que ...',
+      attachmentIds: ['1', '2'],
     })
+
+    console.log(inMemoryQuestionsRepository.items[0].attachments)
 
     expect(result.isRight()).toBe(true)
     expect(result.value?.question).toBeInstanceOf(Question)
@@ -24,5 +28,18 @@ describe('Create Question Use Case (unit tests)', () => {
     expect(inMemoryQuestionsRepository.items[0].id).toEqual(
       result.value?.question.id,
     )
+    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2)
+    expect(inMemoryQuestionsRepository.items[0].attachments).toEqual([
+      expect.objectContaining({
+        props: expect.objectContaining({
+          attachmentId: new UniqueEntityId('1'),
+        }),
+      }),
+      expect.objectContaining({
+        props: expect.objectContaining({
+          attachmentId: new UniqueEntityId('2'),
+        }),
+      }),
+    ])
   })
 })
