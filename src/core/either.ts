@@ -1,7 +1,10 @@
 /**
- * Left   /   Right
- * <---------------->
- * error      success
+ * --------------> success
+ * error <----------------
+ *
+ * Either<L, R>
+ * L: error type
+ * R: success type
  **/
 
 // Error

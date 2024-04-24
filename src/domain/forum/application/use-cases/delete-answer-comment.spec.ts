@@ -1,6 +1,7 @@
 import { makeAnswerComment } from 'test/factories/make-answer-comment'
 import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answer-comments-repository'
 import { DeleteAnswerCommentUseCase } from './delete-answer-comment'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository
 let sut: DeleteAnswerCommentUseCase
@@ -31,12 +32,13 @@ describe('Delete Answer Comments Use Case (unit tests)', () => {
 
     expect(inMemoryAnswerCommentsRepository.items).toHaveLength(1)
 
-    await expect(() =>
-      sut.execute({
-        authorId: 'author-1',
-        answerCommentId: newAnswerComment.id.toString(),
-      }),
-    ).rejects.toThrow(Error)
+    const result = await sut.execute({
+      authorId: 'author-1',
+      answerCommentId: newAnswerComment.id.toString(),
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
 
     expect(inMemoryAnswerCommentsRepository.items).toHaveLength(1)
   })
