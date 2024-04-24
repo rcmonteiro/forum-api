@@ -7,11 +7,11 @@ export interface QuestionAttachmentProps {
 }
 
 export class QuestionAttachment extends Entity<QuestionAttachmentProps> {
-  questionId() {
+  get questionId() {
     return this.props.questionId
   }
 
-  attachmentId() {
+  get attachmentId() {
     return this.props.attachmentId
   }
 

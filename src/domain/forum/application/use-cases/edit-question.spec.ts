@@ -12,9 +12,11 @@ let sut: EditQuestionUseCase
 
 describe('Edit Question Use Case (unit tests)', () => {
   beforeEach(() => {
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
     sut = new EditQuestionUseCase(
       inMemoryQuestionsRepository,
       inMemoryQuestionAttachmentsRepository,
@@ -62,14 +64,10 @@ describe('Edit Question Use Case (unit tests)', () => {
       inMemoryQuestionsRepository.items[0].attachments.currentItems,
     ).toEqual([
       expect.objectContaining({
-        props: expect.objectContaining({
-          attachmentId: new UniqueEntityId('attachment-1'),
-        }),
+        attachmentId: new UniqueEntityId('attachment-1'),
       }),
       expect.objectContaining({
-        props: expect.objectContaining({
-          attachmentId: new UniqueEntityId('attachment-3'),
-        }),
+        attachmentId: new UniqueEntityId('attachment-3'),
       }),
     ])
   })
