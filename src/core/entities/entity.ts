@@ -13,7 +13,7 @@ export abstract class Entity<Props> {
     this.props = props
   }
 
-  public equals(entity: Entity<any>): boolean {
+  public equals(entity: Entity<unknown>): boolean {
     if (entity === this) {
       return true
     }
