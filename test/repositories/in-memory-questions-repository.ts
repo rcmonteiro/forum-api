@@ -1,3 +1,4 @@
+import { DomainEvents } from '@/core/events/domain-events'
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
 import { Question } from '@/domain/forum/enterprise/entities/question'
@@ -29,13 +30,14 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
   async create(question: Question): Promise<void> {
     this.items.push(question)
-    return Promise.resolve()
+    DomainEvents.dispatchEventsForAggregate(question.id)
   }
 
   async save(question: Question): Promise<void> {
     const index = this.items.findIndex((item) => item.id === question.id)
     if (index >= 0) {
       this.items[index] = question
+      DomainEvents.dispatchEventsForAggregate(question.id)
     }
   }
 
